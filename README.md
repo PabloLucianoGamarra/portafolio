@@ -1,4 +1,4 @@
-﻿# Portafolio de Pablo Luciano Gamarra
+# Portafolio de Pablo Luciano Gamarra
 
 Sitio en React y Vite orientado a servicios freelance de e-commerce y páginas corporativas.
 
@@ -32,23 +32,34 @@ La compilación genera `dist/`, que puede publicarse en un alojamiento estático
 
 ## Contacto y spam
 
-El formulario envía por POST a FormSubmit y está dirigido a `pabloluciano97@outlook.com`. Incluye nombre, correo del visitante, tipo de proyecto opcional y mensaje. FormSubmit usa el campo `email` para poder responder al remitente.
+El formulario usa Web3Forms con hCaptcha dentro de la página, compatible con GitHub Pages. Envía por AJAX y muestra el resultado sin redirigir. El token se valida en Web3Forms; es obligatorio habilitar hCaptcha en su panel para proteger también las peticiones directas a la API.
 
-El CAPTCHA de FormSubmit se solicita explícitamente con `_captcha=true` y se conserva el campo trampa `_honey`. Se validan correo, longitudes y contenido vacío. Se limita a un intento por minuto en la misma pestaña mediante sessionStorage, con respaldo en memoria si el almacenamiento está deshabilitado. Se guarda únicamente la hora del intento; el contador incluye intentos cuya entrega falle y permite reintentar después de un minuto. Estos controles del navegador se pueden eludir: no son un límite por IP ni reemplazan la verificación del proveedor. La protección no garantiza eliminar todo el spam. Pruebas locales: `node --test tests/contactProtection.test.js`.
+Conserva la trampa para bots y el límite local de un intento por minuto. No permite enviar sin CAPTCHA, elimina el token después de cada intento y bloquea envíos simultáneos. Ante errores conserva los campos. La confirmación indica aceptación del proveedor; comprobar la recepción real en el buzón.
 
 ### Activación necesaria
 
-1. Abrir el sitio mediante `npm run dev` o desde su URL pública.
-2. Completar el formulario con una consulta de prueba y continuar a FormSubmit.
-3. Resolver su verificación antispam.
-4. Abrir el mensaje de activación recibido en Outlook y confirmar la dirección (revisar también correo no deseado).
-5. Enviar una nueva consulta de prueba y verificar su recepción antes de publicar el formulario como operativo.
+1. Crear un formulario en https://web3forms.com/ para `pabloluciano97@outlook.com`, confirmar el correo y obtener su Access Key.
+2. En el panel del formulario, activar hCaptcha como CAPTCHA obligatorio. No basta con mostrar el widget en React.
+3. Copiar `.env.example` a `.env.local` y completar `VITE_WEB3FORMS_ACCESS_KEY=tu_access_key`. Reiniciar Vite. Sin clave, el formulario queda deshabilitado y ofrece el correo alternativo.
+4. Resolver el CAPTCHA y probar el envío desde el dominio publicado. Comprobar que llega a Outlook y que el proveedor rechaza solicitudes sin token o con token inválido.
 
-La dirección se reconstruye al enviar o al mostrar el correo alternativo. Esto solo dificulta la recolección automática básica: el código del navegador es público. FormSubmit proporciona un identificador alternativo después de confirmar la dirección; se puede utilizar en el endpoint para evitar incluir el correo.
+La Access Key está diseñada para usarse en el navegador y aparecerá en la compilación. No introducir contraseñas de Outlook ni secretos de hCaptcha en variables VITE_. Se utiliza la sitekey pública de hCaptcha documentada por Web3Forms para su integración gratuita.
 
-Los visitantes salen del sitio para completar la verificación y ver la confirmación del proveedor. El formulario informa que FormSubmit procesa sus datos. El sitio no afirma que un mensaje llegó al buzón antes de verificarlo, no incluye credenciales y no cambia los filtros de Outlook.
+### GitHub Pages
 
-Documentación: https://formsubmit.co/documentation
+Si compilás localmente, `.env.local` se carga durante `npm run build`; publicar el contenido de `dist/`. Si compilás con GitHub Actions, crear una variable del repositorio llamada `VITE_WEB3FORMS_ACCESS_KEY` y pasarla al paso de compilación:
+
+```yaml
+- run: npm run build
+  env:
+    VITE_WEB3FORMS_ACCESS_KEY: ${{ vars.VITE_WEB3FORMS_ACCESS_KEY }}
+```
+
+Volver a compilar y desplegar después de cambiar la clave. La base de Vite es `/portafolio/`; debe coincidir con el nombre del repositorio de Pages.
+
+Pruebas locales: `node --test tests/contactProtection.test.js tests/sendContact.test.js`. No envían correos reales.
+
+Documentación: https://docs.web3forms.com/getting-started/customizations/spam-protection/hcaptcha
 ## Pendiente de contenido
 
 Agregar el enlace del sistema si corresponde. Antes de publicar, preparar copias anonimizadas de las capturas: actualmente incluyen nombres, notas y datos de usuarios. Las propuestas ficticias están identificadas como tales. No se publicaron el sitio ni las demos en servicios externos.

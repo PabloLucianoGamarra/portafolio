@@ -1,7 +1,8 @@
 export const CONTACT_COOLDOWN_MS = 60_000
 export const CONTACT_ATTEMPT_KEY = 'portfolio:contact:last-attempt'
 
-// Browser-side friction only. FormSubmit's CAPTCHA is the server-side check.
+// Browser-side friction only; these checks can be bypassed by direct requests.
+// Web3Forms validates hCaptcha server-side when required in its dashboard.
 export function validateContact(data, lastAttempt = 0, now = Date.now()) {
   if (String(data.get('_honey') || '').length) {
     return 'No se pudo enviar. Podés usar el correo de contacto alternativo.'

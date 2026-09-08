@@ -1,5 +1,6 @@
-﻿import { useEffect, useRef, useState } from 'react'
-import { CONTACT_ATTEMPT_KEY, validateContact } from './contactProtection'
+import { useEffect, useRef, useState } from 'react'
+import { useContactForm } from './useContactForm'
+import HCaptcha from '@hcaptcha/react-hcaptcha'
 import './App.css'
 import { saveTheme } from './theme'
 
@@ -58,35 +59,10 @@ function Preview({ id }) {
 }
 
 function Contact() {
-  const [email, setEmail] = useState('')
-  const [formError, setFormError] = useState('')
-  const lastAttemptRef = useRef(0)
-  function contactEmail() {
-    // Basic obfuscation only; a public client cannot keep an address secret.
-    return String.fromCharCode(...[112,97,98,108,111,108,117,99,105,97,110,111,57,55]) + '@' + ['outlook', 'com'].join('.')
-  }
-  function submitContact(event) {
-    const form = event.currentTarget
-    const data = new FormData(form)
-    let previousAttempt = lastAttemptRef.current
-    try {
-      previousAttempt = Math.max(previousAttempt, Number(sessionStorage.getItem(CONTACT_ATTEMPT_KEY)) || 0)
-    } catch { /* Storage may be unavailable; the in-memory guard remains active. */ }
-    const now = Date.now()
-    const error = validateContact(data, previousAttempt, now)
-    if (error) {
-      event.preventDefault()
-      setFormError(error)
-      return
-    }
-    lastAttemptRef.current = now
-    try {
-      sessionStorage.setItem(CONTACT_ATTEMPT_KEY, String(now))
-    } catch { /* Do not prevent legitimate contact when storage is disabled. */ }
-    setFormError('')
-    // Native POST preserves the provider's CAPTCHA and confirmation flow.
-    form.action = `https://formsubmit.co/${contactEmail()}`
-  }
+  const {
+    accessKey, email, sending, formSuccess, formError, captchaError, captchaRef,
+    submitContact, revealEmail, handleCaptchaVerify, handleCaptchaExpire, handleCaptchaError,
+  } = useContactForm()
   return <section id="contacto" className="contact wrap">
     <div className="contact-layout">
       <div className="contact-copy">
@@ -95,14 +71,12 @@ function Contact() {
         <p>Contame qué necesitás, en qué etapa estás y qué te gustaría lograr con tu web.</p>
         <div className="contact-action">
           <p className="contact-alternative">¿Preferís escribirme directamente?</p>
-          {!email && <button type="button" className="button contact-button" onClick={() => setEmail(contactEmail())} aria-controls="email-contact">Mostrar correo ↗</button>}
+          {!email && <button type="button" className="button contact-button" onClick={revealEmail} aria-controls="email-contact">Mostrar correo ↗</button>}
           <div id="email-contact" aria-live="polite">{email && <a className="revealed-email" href={`mailto:${email}?subject=${encodeURIComponent('Consulta por un proyecto web')}`}>{email} ↗</a>}</div>
         </div>
       </div>
-      <form className="contact-form" method="POST" onSubmit={submitContact} aria-label="Consulta por un proyecto web" aria-describedby="contact-delivery-note">
-        <input type="hidden" name="_subject" value="Nueva consulta desde el portafolio de Pablo Gamarra" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="true" />
+      <form className="contact-form" method="POST" onSubmit={submitContact} aria-busy={sending} aria-label="Consulta por un proyecto web" aria-describedby="contact-delivery-note">
+        <fieldset className="contact-form-fields" disabled={sending}>
         <div className="contact-honeypot" aria-hidden="true"><label htmlFor="contact-website">Dejar vacío</label><input id="contact-website" name="_honey" type="text" tabIndex={-1} autoComplete="off" /></div>
         <div className="contact-fields">
           <div className="contact-field"><label htmlFor="contact-name">Tu nombre <span>(obligatorio)</span></label><input id="contact-name" name="name" type="text" autoComplete="name" placeholder="¿Cómo te llamás?" required minLength={2} maxLength={100} /></div>
@@ -110,9 +84,19 @@ function Contact() {
         </div>
         <div className="contact-field"><label htmlFor="contact-service">¿Qué necesitás?</label><select id="contact-service" name="service" defaultValue=""><option value="" disabled>Elegí una opción (opcional)</option><option>Tienda online</option><option>Página web corporativa</option><option>Desarrollo a medida</option><option>Mejorar una web existente</option><option>Quiero asesoramiento</option></select></div>
         <div className="contact-field"><label htmlFor="contact-message">Contame tu idea <span>(obligatorio)</span></label><textarea id="contact-message" name="message" rows={5} required minLength={20} maxLength={5000} placeholder="Mi negocio se dedica a… y me gustaría una web que…" aria-describedby="contact-message-hint" /><small id="contact-message-hint">Entre 20 y 5.000 caracteres.</small></div>
-        <p id="contact-delivery-note" className="contact-delivery-note">Al enviar, continuarás a la verificación antispam de FormSubmit, que procesará tus datos para hacerme llegar la consulta.</p>
+        </fieldset>
+        {accessKey ? <div className="contact-captcha">
+          <HCaptcha ref={captchaRef} sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2" reCaptchaCompat={false} languageOverride="es" size="compact"
+            onVerify={handleCaptchaVerify}
+            onExpire={handleCaptchaExpire}
+            onError={handleCaptchaError}
+          />
+        </div> : <p className="contact-delivery-note">El formulario todavía no está disponible. Podés escribirme usando el correo alternativo.</p>}
+        <p id="contact-delivery-note" className="contact-delivery-note">La verificación y el envío se completan en esta página. hCaptcha verifica que no seas un bot y Web3Forms procesa tus datos para enviarme la consulta.</p>
+        <p className="contact-form-error" role="alert">{captchaError}</p>
         <p className="contact-form-error" role="alert">{formError}</p>
-        <button className="button primary contact-submit" type="submit">Enviar consulta <span aria-hidden="true">↗</span></button>
+        <p className="contact-form-success" role="status">{formSuccess}</p>
+        <button className="button primary contact-submit" type="submit" disabled={sending || !accessKey}>{sending ? 'Enviando…' : 'Enviar consulta'} <span aria-hidden="true">↗</span></button>
       </form>
     </div>
   </section>
@@ -262,7 +246,6 @@ function App() {
   </>
 }
 export default App
-
 
 
 

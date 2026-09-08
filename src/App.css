@@ -85,6 +85,12 @@
 .contact-form-error { color: #a12d27; font-size: 12px; }
 .contact-form-error:not(:empty) { margin-top: 14px; }
 .contact-submit { margin-top: 18px; width: 100%; }
+.contact-form-fields { border: 0; margin: 0; padding: 0; min-width: 0; }
+.contact-captcha { margin-top: 18px; }
+.contact-submit:disabled { opacity: .65; cursor: wait; }
+.contact-form-success { color: #21633b; font-size: 14px; }
+.contact-form-success:not(:empty) { margin-top: 14px; }
+[data-theme="dark"] .contact-form-success { color: #9be0b3; }
 @media (max-width: 1000px) { .contact-fields { grid-template-columns: 1fr; gap: 0; } .contact-layout { gap: 28px; } }
 @media (max-width: 760px) { .contact-layout { grid-template-columns: 1fr; } .contact-form { padding: 20px; } .contact-copy h2 { font-size: 44px; } }
 @media (max-width: 400px) { .contact-form { padding: 16px; } .contact-copy h2 { font-size: 36px; } }
