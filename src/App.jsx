@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useContactForm } from './useContactForm'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
 import './App.css'
+import './Experience.css'
 import { saveTheme } from './theme'
 
 const projects = [
@@ -76,6 +77,7 @@ function Contact() {
         </div>
       </div>
       <form className="contact-form" method="POST" onSubmit={submitContact} aria-busy={sending} aria-label="Consulta por un proyecto web" aria-describedby="contact-delivery-note">
+        <div className="contact-form-heading"><h3>Contame sobre tu proyecto</h3><p>Completá tus datos y te responderé por correo.</p></div>
         <fieldset className="contact-form-fields" disabled={sending}>
         <div className="contact-honeypot" aria-hidden="true"><label htmlFor="contact-website">Dejar vacío</label><input id="contact-website" name="_honey" type="text" tabIndex={-1} autoComplete="off" /></div>
         <div className="contact-fields">
@@ -209,6 +211,17 @@ function Navigation() {
   </header>
 }
 
+function ProjectProcess() {
+  return <div className="process">
+    <h3>De la idea al primer paso</h3>
+    <ol>
+      <li><h4>Contame qué necesitás</h4><p>Tu negocio, tu idea y las referencias que te gustan. No hace falta tener todo definido.</p></li>
+      <li><h4>Definimos el alcance</h4><p>Conversamos sobre funcionalidades, prioridades y presupuesto para ordenar la propuesta.</p></li>
+      <li><h4>Acordamos cómo avanzar</h4><p>Establecemos las etapas y los próximos pasos antes de empezar el desarrollo.</p></li>
+    </ol>
+  </div>
+}
+
 function App() {
   const [activeProject, setActiveProject] = useState(null)
   return <>
@@ -223,8 +236,8 @@ function App() {
           <div className="portrait-caption"><span className="status-dot" aria-hidden="true" /><span>Pablo Luciano Gamarra<small>Desarrollo web freelance</small></span></div>
         </div></section>
       <div className="intro-strip"><div className="wrap"><span>Ideas claras. Sitios con propósito.</span><span>E-COMMERCE <b>✳</b> WEBS CORPORATIVAS <b>✳</b> DESARROLLO WEB</span></div></div>
-      <section id="proyectos" className="section wrap"><div className="section-heading"><div><p className="eyebrow">01 / PROYECTOS</p><h2>Del concepto<br />a la <em>pantalla.</em></h2></div><p>Conceptos de tiendas online, webs corporativas y aplicaciones. Explorá cada tarjeta para conocer su alcance y las tecnologías utilizadas.</p></div><div className="project-grid">{projects.map((project) => <article className={`project-card project-${project.id}`} key={project.id}><Preview id={project.id} /><div className="project-meta"><span>{project.category} / {project.technology}</span><span>{project.type}</span></div><button className="project-toggle" aria-expanded={activeProject === project.id} aria-controls={`details-${project.id}`} onClick={() => setActiveProject(activeProject === project.id ? null : project.id)}><h3>{project.name}</h3><span className="project-toggle-icon" aria-hidden="true">+</span></button><p>{project.description}</p><div id={`details-${project.id}`} className={`project-details${activeProject === project.id ? ' is-open' : ''}`} aria-hidden={activeProject !== project.id} inert={activeProject !== project.id}><div className="project-details-clip"><div className="project-details-content"><p>{project.details}</p>{project.id === 'tienda' && <ShopDemo />}{project.id === 'notas' && <GradesGallery />}</div></div></div></article>)}</div></section>
-      <section id="servicios" className="services"><div className="wrap section"><div className="section-heading"><div><p className="eyebrow">02 / SERVICIOS</p><h2>Una web a la altura<br />de <em>tu idea.</em></h2></div><p>Un punto de partida para tu proyecto. Definimos juntos las funcionalidades que necesita tu negocio.</p></div><div className="service-grid"><article><span className="service-icon">↗</span><span className="service-number">01</span><h3>Tiendas online</h3><p>Una propuesta para presentar tu catálogo y diseñar una experiencia de compra clara, desde el producto hasta el carrito.</p><span className="service-foot">TU CATÁLOGO, EN DIGITAL</span></article><article><span className="service-icon">▦</span><span className="service-number">02</span><h3>Webs corporativas</h3><p>Un lugar propio para contar quién sos, mostrar tus servicios y facilitar que nuevos clientes conozcan tu negocio.</p><span className="service-foot">UNA PRESENCIA CON IDENTIDAD</span></article><article><span className="service-icon">⌘</span><span className="service-number">03</span><h3>Desarrollo a medida</h3><p>Definimos las funcionalidades y evaluamos las herramientas adecuadas según los objetivos, el presupuesto y el alcance de tu proyecto.</p><span className="service-foot">UNA SOLUCIÓN PARA TU IDEA</span></article></div></div></section>
+      <section id="proyectos" className="section wrap"><div className="section-heading"><div><p className="eyebrow">01 / PROYECTOS</p><h2>Del concepto<br />a la <em>pantalla.</em></h2></div><p>Conceptos de tiendas online, webs corporativas y aplicaciones. Explorá cada tarjeta para conocer su alcance y las tecnologías utilizadas.</p></div><div className="project-grid">{projects.map((project) => <article className={`project-card project-${project.id}`} key={project.id}><Preview id={project.id} /><div className="project-meta"><span>{project.category} / {project.technology}</span><span>{project.type}</span></div><h3 className="project-title" id={`title-${project.id}`}>{project.name}</h3><p>{project.description}</p><button className="project-toggle" aria-expanded={activeProject === project.id} aria-controls={`details-${project.id}`} aria-describedby={`title-${project.id}`} onClick={() => setActiveProject(activeProject === project.id ? null : project.id)}><span>{activeProject === project.id ? 'Cerrar proyecto' : 'Explorar proyecto'}</span><span className="project-toggle-icon" aria-hidden="true">+</span></button><div id={`details-${project.id}`} className={`project-details${activeProject === project.id ? ' is-open' : ''}`} aria-hidden={activeProject !== project.id} inert={activeProject !== project.id}><div className="project-details-clip"><div className="project-details-content"><p>{project.details}</p>{project.id === 'tienda' && <ShopDemo />}{project.id === 'notas' && <GradesGallery />}</div></div></div></article>)}</div></section>
+      <section id="servicios" className="services"><div className="wrap section"><div className="section-heading"><div><p className="eyebrow">02 / SERVICIOS</p><h2>Una web a la altura<br />de <em>tu idea.</em></h2></div><p>Un punto de partida para tu proyecto. Definimos juntos las funcionalidades que necesita tu negocio.</p></div><div className="service-grid"><article><span className="service-icon">↗</span><span className="service-number">01</span><h3>Tiendas online</h3><p>Una propuesta para presentar tu catálogo y diseñar una experiencia de compra clara, desde el producto hasta el carrito.</p><span className="service-foot">TU CATÁLOGO, EN DIGITAL</span><a className="text-link service-link" href="#contacto">Consultar por este servicio <span aria-hidden="true">↗</span></a></article><article><span className="service-icon">▦</span><span className="service-number">02</span><h3>Webs corporativas</h3><p>Un lugar propio para contar quién sos, mostrar tus servicios y facilitar que nuevos clientes conozcan tu negocio.</p><span className="service-foot">UNA PRESENCIA CON IDENTIDAD</span><a className="text-link service-link" href="#contacto">Consultar por este servicio <span aria-hidden="true">↗</span></a></article><article><span className="service-icon">⌘</span><span className="service-number">03</span><h3>Desarrollo a medida</h3><p>Definimos las funcionalidades y evaluamos las herramientas adecuadas según los objetivos, el presupuesto y el alcance de tu proyecto.</p><span className="service-foot">UNA SOLUCIÓN PARA TU IDEA</span><a className="text-link service-link" href="#contacto">Consultar por este servicio <span aria-hidden="true">↗</span></a></article></div><ProjectProcess /></div></section>
       <section id="perfil" className="section wrap profile">
         <div>
           <p className="eyebrow">03 / SOBRE MÍ</p>
