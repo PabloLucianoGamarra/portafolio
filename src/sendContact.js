@@ -1,5 +1,10 @@
 // Require hCaptcha in the Web3Forms dashboard to protect direct API requests too.
-export async function sendContact(data, accessKey, captchaToken, fetchImpl = fetch) {
+export async function sendContact(
+  data,
+  accessKey,
+  captchaToken,
+  fetchImpl = fetch,
+) {
   if (!accessKey || !captchaToken || data.get('_honey')) {
     throw new Error('Missing configuration, CAPTCHA or invalid submission')
   }
@@ -8,7 +13,10 @@ export async function sendContact(data, accessKey, captchaToken, fetchImpl = fet
   try {
     const response = await fetchImpl('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
       signal: controller.signal,
       body: JSON.stringify({
         access_key: accessKey,
@@ -22,7 +30,8 @@ export async function sendContact(data, accessKey, captchaToken, fetchImpl = fet
       }),
     })
     const result = await response.json()
-    if (!response.ok || result.success !== true) throw new Error('Submission rejected')
+    if (!response.ok || result.success !== true)
+      throw new Error('Submission rejected')
   } finally {
     clearTimeout(timeout)
   }

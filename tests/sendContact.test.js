@@ -2,14 +2,27 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { sendContact } from '../src/sendContact.js'
 
-const data = () => new Map(Object.entries({ name: ' Ana ', email: 'ana@example.com', message: 'Necesito una web para mi negocio.', _honey: '' }))
+const data = () =>
+  new Map(
+    Object.entries({
+      name: ' Ana ',
+      email: 'ana@example.com',
+      message: 'Necesito una web para mi negocio.',
+      _honey: '',
+    }),
+  )
 
 test('no llama al proveedor sin CAPTCHA, sin clave o con trampa completa', async () => {
   let calls = 0
-  const fetchMock = async () => { calls++; return { ok: true, json: async () => ({ success: true }) } }
+  const fetchMock = async () => {
+    calls++
+    return { ok: true, json: async () => ({ success: true }) }
+  }
   await assert.rejects(sendContact(data(), 'key', '', fetchMock))
   await assert.rejects(sendContact(data(), '', 'token', fetchMock))
-  await assert.rejects(sendContact(data().set('_honey', 'bot'), 'key', 'token', fetchMock))
+  await assert.rejects(
+    sendContact(data().set('_honey', 'bot'), 'key', 'token', fetchMock),
+  )
   assert.equal(calls, 0)
 })
 
@@ -30,9 +43,20 @@ test('propaga rechazo del CAPTCHA, errores HTTP, red y respuestas inválidas', a
     { ok: true, json: async () => ({ success: false }) },
     { ok: false, json: async () => ({ success: true }) },
     { ok: true, json: async () => ({}) },
-    { ok: true, json: async () => { throw new SyntaxError('Invalid JSON') } },
+    {
+      ok: true,
+      json: async () => {
+        throw new SyntaxError('Invalid JSON')
+      },
+    },
   ]) {
-    await assert.rejects(sendContact(data(), 'key', 'token', async () => response))
+    await assert.rejects(
+      sendContact(data(), 'key', 'token', async () => response),
+    )
   }
-  await assert.rejects(sendContact(data(), 'key', 'token', async () => { throw new TypeError('Network error') }))
+  await assert.rejects(
+    sendContact(data(), 'key', 'token', async () => {
+      throw new TypeError('Network error')
+    }),
+  )
 })

@@ -8,14 +8,24 @@ export function applyTheme(theme) {
 
 export function initializeTheme() {
   let theme
-  try { theme = localStorage.getItem(THEME_KEY) } catch { /* Storage is optional. */ }
+  try {
+    theme = localStorage.getItem(THEME_KEY)
+  } catch {
+    /* Storage is optional. */
+  }
   if (theme !== 'light' && theme !== 'dark') {
-    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
   }
   applyTheme(theme)
 }
 
 export function saveTheme(theme) {
   applyTheme(theme)
-  try { localStorage.setItem(THEME_KEY, theme) } catch { /* The toggle still works without storage. */ }
+  try {
+    localStorage.setItem(THEME_KEY, theme)
+  } catch {
+    /* The toggle still works without storage. */
+  }
 }
