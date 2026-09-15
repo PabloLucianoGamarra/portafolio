@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import {
   validateContact,
   CONTACT_COOLDOWN_MS,
-} from '../src/contactProtection.js'
+} from '../src/utils/contactProtection.js'
 
 function contact(overrides = {}) {
   return new Map(

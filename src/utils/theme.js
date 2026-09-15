@@ -1,4 +1,4 @@
-﻿const THEME_KEY = 'portfolio:theme'
+const THEME_KEY = 'portfolio:theme'
 
 export function applyTheme(theme) {
   document.documentElement.dataset.theme = theme

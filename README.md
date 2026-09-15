@@ -23,8 +23,19 @@ La compilación genera `dist/`, que puede publicarse en un alojamiento estático
 
 ## Contenido
 
-- `src/App.jsx`: presentación, servicios, contacto y proyectos.
-- `src/App.css` y `src/index.css`: estilos adaptables a móviles.
+- `src/App.jsx`: composición de la página.
+- `src/components/layout/`: navegación, selector de tema y pie de página.
+- `src/components/sections/`: inicio, proyectos, servicios, perfil, docencia y contacto.
+- `src/components/projects/`: vistas previas, galería compartida y demo de tienda.
+- `src/styles/`: hojas CSS; se conserva su orden de carga.
+- `src/data/`: proyectos, productos, navegación y capturas.
+- `src/hooks/`: estado y comportamiento del formulario de contacto.
+- `src/services/`: envío de consultas al proveedor.
+- `src/utils/`: formato de moneda, tema y validación de contacto.
+- `public/images/`: imágenes originales de los proyectos.
+
+El marcado de las secciones vive en sus componentes JSX. `index.html` permanece en la raíz como entrada de Vite; `dist/` contiene la compilación generada y no se usa para editar el sitio.
+
 - `index.html`: título y descripción para buscadores.
 - Objeto: demo ficticia de tienda, con categorías y carrito en memoria. Sin cobros, pedidos ni persistencia; el carrito se conserva al cerrar y reabrir la demo; recargar la página lo reinicia.
 - Norte: concepto visual para una empresa ficticia. No es una web corporativa completa ni un trabajo para un cliente.
@@ -60,10 +71,7 @@ Volver a compilar y desplegar después de cambiar la clave. La base de Vite es `
 Pruebas locales: `node --test tests/contactProtection.test.js tests/sendContact.test.js`. No envían correos reales.
 
 Documentación: https://docs.web3forms.com/getting-started/customizations/spam-protection/hcaptcha
+
 ## Pendiente de contenido
 
 Agregar el enlace del sistema si corresponde. Antes de publicar, preparar copias anonimizadas de las capturas: actualmente incluyen nombres, notas y datos de usuarios. Las propuestas ficticias están identificadas como tales. No se publicaron el sitio ni las demos en servicios externos.
-
-
-
-

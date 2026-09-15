@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { sendContact } from '../src/sendContact.js'
+import { sendContact } from '../src/services/sendContact.js'
 
 const data = () =>
   new Map(

@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react'
-import { CONTACT_ATTEMPT_KEY, validateContact } from './contactProtection'
-import { sendContact } from './sendContact'
+import {
+  CONTACT_ATTEMPT_KEY,
+  validateContact,
+} from '../utils/contactProtection'
+import { sendContact } from '../services/sendContact'
 
 export function useContactForm() {
   const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim()

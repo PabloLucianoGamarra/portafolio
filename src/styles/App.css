@@ -1,4 +1,4 @@
-﻿.wrap {
+.wrap {
   width: min(1180px, calc(100% - 96px));
   margin-inline: auto;
 }
@@ -340,6 +340,48 @@ h2 {
   border-radius: 7px;
   overflow: hidden;
   position: relative;
+}
+.buen-clima-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 28px;
+  background: #f5ecd9;
+  color: #304a35;
+}
+.buen-clima-cover > span {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+.buen-clima-cover > strong {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+}
+.buen-clima-cover > p {
+  font-size: 14px;
+}
+.project-features,
+.buen-clima-details {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.project-features > h4,
+.buen-clima-details > h4 {
+  margin-top: 22px;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.project-features ul,
+.buen-clima-details ul {
+  padding-left: 20px;
+}
+.project-features li,
+.project-features > p,
+.buen-clima-details li,
+.buen-clima-details > p {
+  margin-bottom: 12px;
 }
 .mini-nav {
   display: flex;
