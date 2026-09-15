@@ -8,6 +8,7 @@ import Services from './components/sections/Services'
 import Profile from './components/sections/Profile'
 import TeachingExperience from './components/sections/TeachingExperience'
 import Contact from './components/sections/Contact'
+import Technologies from './components/sections/Technologies'
 
 function App() {
   return (
@@ -18,18 +19,11 @@ function App() {
       <Navigation />
       <main id="contenido">
         <Hero />
-        <div className="intro-strip">
-          <div className="wrap">
-            <span>Ideas claras. Sitios con propósito.</span>
-            <span>
-              E-COMMERCE <b>✳</b> WEBS CORPORATIVAS <b>✳</b> DESARROLLO WEB
-            </span>
-          </div>
-        </div>
-        <Projects />
-        <Services />
         <Profile />
+        <Technologies />
+        <Services />
         <TeachingExperience />
+        <Projects />
         <Contact />
       </main>
       <Footer />

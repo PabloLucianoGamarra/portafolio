@@ -3,7 +3,7 @@ const THEME_KEY = 'portfolio:theme'
 export function applyTheme(theme) {
   document.documentElement.dataset.theme = theme
   const meta = document.querySelector('meta[name="theme-color"]')
-  if (meta) meta.content = theme === 'dark' ? '#0b1724' : '#147eb5'
+  if (meta) meta.content = theme === 'dark' ? '#171d24' : '#f8f9fb'
 }
 
 export function initializeTheme() {

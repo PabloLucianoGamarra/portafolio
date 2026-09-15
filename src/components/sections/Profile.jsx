@@ -2,7 +2,7 @@ export default function Profile() {
   return (
     <section id="perfil" className="section wrap profile">
       <div>
-        <p className="eyebrow">03 / SOBRE MÍ</p>
+        <p className="section-label">Sobre mí</p>
         <h2>
           Pablo Luciano
           <br />

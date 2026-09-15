@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import '../../styles/TeachingExperience.css'
 
 const experiences = [
@@ -148,52 +147,16 @@ function TeachingIcon({ type }) {
 }
 
 export default function TeachingExperience() {
-  const sectionRef = useRef(null)
-
-  useEffect(() => {
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (!('IntersectionObserver' in window) || motion.matches) return
-    const cards = sectionRef.current.querySelectorAll('.teaching-reveal')
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove('is-pending')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.08 },
-    )
-    cards.forEach((card) => {
-      card.classList.add('is-pending')
-      observer.observe(card)
-    })
-    function showAll() {
-      if (motion.matches) {
-        cards.forEach((card) => card.classList.remove('is-pending'))
-        observer.disconnect()
-      }
-    }
-    motion.addEventListener('change', showAll)
-    return () => {
-      observer.disconnect()
-      cards.forEach((card) => card.classList.remove('is-pending'))
-      motion.removeEventListener('change', showAll)
-    }
-  }, [])
-
   return (
     <section
       id="experiencia-docente"
       className="teaching section"
       aria-labelledby="teaching-title"
-      ref={sectionRef}
     >
       <div className="wrap">
         <div className="section-heading teaching-heading">
           <div>
-            <p className="eyebrow">04 / EDUCACIÓN + TECNOLOGÍA</p>
+            <p className="section-label">Experiencia · Educación y tecnología</p>
             <h2 id="teaching-title">
               Experiencia <em>Docente</em>
             </h2>
@@ -246,7 +209,7 @@ export default function TeachingExperience() {
           ))}
         </div>
         <div className="teaching-method teaching-reveal">
-          <p className="eyebrow">APRENDER HACIENDO</p>
+          <p className="section-label">Aprender haciendo</p>
           <h3>Del concepto al proyecto que funciona.</h3>
           <p>
             Desarrollo y coordino proyectos educativos con una metodología

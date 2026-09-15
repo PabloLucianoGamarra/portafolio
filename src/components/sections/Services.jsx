@@ -6,7 +6,7 @@ export default function Services() {
       <div className="wrap section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">02 / SERVICIOS</p>
+            <p className="section-label">Servicios</p>
             <h2>
               Una web a la altura
               <br />
@@ -14,7 +14,7 @@ export default function Services() {
             </h2>
           </div>
           <p>
-            Un punto de partida para tu proyecto. Definimos juntos las
+            Sitios web, landing pages, plataformas educativas y paneles administrativos. Un punto de partida para tu proyecto. Definimos juntos las
             funcionalidades que necesita tu negocio.
           </p>
         </div>

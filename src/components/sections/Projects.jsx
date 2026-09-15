@@ -12,7 +12,7 @@ export default function Projects() {
     <section id="proyectos" className="section wrap">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">01 / PROYECTOS</p>
+          <p className="section-label">Proyectos</p>
           <h2>
             Del concepto
             <br />a la <em>pantalla.</em>
@@ -20,7 +20,7 @@ export default function Projects() {
         </div>
         <p>
           Proyectos de desarrollo web y conceptos de tiendas online, webs
-          corporativas y aplicaciones. Explorá cada tarjeta para conocer su
+          corporativas y aplicaciones. Explorá cada proyecto para conocer su
           alcance y las tecnologías utilizadas.
         </p>
       </div>
@@ -31,7 +31,7 @@ export default function Projects() {
             key={project.id}
           >
             <Preview id={project.id} />
-            <div className="project-meta">
+            <div className="project-summary"><div className="project-meta">
               <span>
                 {project.category} / {project.technology}
               </span>
@@ -61,6 +61,7 @@ export default function Projects() {
                 +
               </span>
             </button>
+            </div>
             <div
               id={`details-${project.id}`}
               className={`project-details${activeProject === project.id ? ' is-open' : ''}`}

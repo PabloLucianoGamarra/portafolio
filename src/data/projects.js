@@ -1,7 +1,7 @@
 export const projects = [
   {
     id: 'buen-clima',
-    name: 'Buen Clima — gastronomía y pedidos',
+    name: 'Buen Clima · gastronomía y pedidos',
     category: 'Web gastronómica',
     technology: 'React + CSS',
     type: 'Proyecto propio',
@@ -47,7 +47,7 @@ export const projects = [
   },
   {
     id: 'tienda',
-    name: 'Objeto — tienda de diseño',
+    name: 'Objeto · tienda de diseño',
     category: 'E-commerce',
     technology: 'React',
     type: 'Demo conceptual',
@@ -58,7 +58,7 @@ export const projects = [
   },
   {
     id: 'empresa',
-    name: 'Norte — estudio de arquitectura',
+    name: 'Norte · estudio de arquitectura',
     category: 'Web corporativa',
     technology: 'React',
     type: 'Concepto visual',

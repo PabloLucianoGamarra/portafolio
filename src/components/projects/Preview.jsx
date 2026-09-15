@@ -6,6 +6,8 @@ export default function Preview({ id }) {
         <img
           src={buenClimaImages[0][1]}
           alt="Vista de la web gastronómica Buen Clima"
+          width={1365}
+          height={790}
           loading="lazy"
         />
         <span className="grades-preview-label">Menú, bebidas y pedidos</span>
@@ -40,7 +42,7 @@ export default function Preview({ id }) {
           <div className="vase" />
         </div>
         <div className="mini-footer">
-          DISEÑO CON INTENCIÓN <span>COLECCIÓN 01 — HOGAR</span>
+          DISEÑO CON INTENCIÓN <span>COLECCIÓN 01 · HOGAR</span>
         </div>
       </div>
     )

@@ -8,39 +8,19 @@ export default function Navigation() {
   const menuRef = useRef(null)
 
   useEffect(() => {
-    let frame = 0
-    function updateSection() {
-      const marker =
-        (headerRef.current?.getBoundingClientRect().bottom || 90) + 55
-      let current = 'inicio'
-      for (const { id } of navigationLinks) {
-        if (document.getElementById(id)?.getBoundingClientRect().top <= marker)
-          current = id
+    const sections = navigationLinks.map(({ id }) => document.getElementById(id)).filter(Boolean)
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) setActive(entry.target.id)
       }
-      if (
-        window.scrollY > 0 &&
-        window.innerHeight + window.scrollY >=
-          document.documentElement.scrollHeight - 8
-      )
-        current = 'contacto'
-      setActive(current)
-    }
-    function scheduleUpdate() {
-      cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(updateSection)
-    }
-    const desktop = window.matchMedia('(min-width: 901px)')
-    function onResize() {
-      if (desktop.matches) setOpen(false)
-      scheduleUpdate()
-    }
-    updateSection()
-    window.addEventListener('scroll', scheduleUpdate, { passive: true })
-    window.addEventListener('resize', onResize)
+    }, { rootMargin: '-80px 0px -55% 0px', threshold: 0 })
+    sections.forEach(section => observer.observe(section))
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const onResize = () => { if (desktop.matches) setOpen(false) }
+    desktop.addEventListener('change', onResize)
     return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', scheduleUpdate)
-      window.removeEventListener('resize', onResize)
+      observer.disconnect()
+      desktop.removeEventListener('change', onResize)
     }
   }, [])
 
@@ -66,7 +46,7 @@ export default function Navigation() {
   function navigate(event, id) {
     setOpen(false)
     setActive(id)
-    if (window.matchMedia('(max-width: 900px)').matches) {
+    if (window.matchMedia('(max-width: 1023px)').matches) {
       // Move keyboard focus out of the collapsing menu without interrupting the anchor scroll.
       const target = document.getElementById(id)
       if (target) {
