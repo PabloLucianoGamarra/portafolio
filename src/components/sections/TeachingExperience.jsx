@@ -156,7 +156,9 @@ export default function TeachingExperience() {
       <div className="wrap">
         <div className="section-heading teaching-heading">
           <div>
-            <p className="section-label">Experiencia · Educación y tecnología</p>
+            <p className="section-label">
+              Experiencia · Educación y tecnología
+            </p>
             <h2 id="teaching-title">
               Experiencia <em>Docente</em>
             </h2>
@@ -190,21 +192,24 @@ export default function TeachingExperience() {
                   <p className="teaching-role">{experience.role}</p>
                 </div>
               </div>
-              <h4>Materias y áreas</h4>
-              <ul className="teaching-subjects">
-                {experience.areas.map((area) => (
-                  <li key={area}>{area}</li>
-                ))}
-              </ul>
-              <p className="teaching-description">{experience.description}</p>
-              <div className="teaching-knowledge">
-                <h4>Conocimientos y tecnologías</h4>
-                <ul className="teaching-tags">
-                  {experience.knowledge.map((item) => (
-                    <li key={item}>{item}</li>
+              <details className="teaching-details">
+                <summary>Ver materias y experiencia</summary>
+                <h4>Materias y áreas</h4>
+                <ul className="teaching-subjects">
+                  {experience.areas.map((area) => (
+                    <li key={area}>{area}</li>
                   ))}
                 </ul>
-              </div>
+                <p className="teaching-description">{experience.description}</p>
+                <div className="teaching-knowledge">
+                  <h4>Conocimientos y tecnologías</h4>
+                  <ul className="teaching-tags">
+                    {experience.knowledge.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
             </article>
           ))}
         </div>

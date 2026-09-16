@@ -22,13 +22,14 @@ export const gradeScreenshots = [
   },
 ]
 
-export const buenClimaImages = Object.entries(
-  import.meta.glob('/public/images/buenClima/*.{png,jpg,jpeg,webp,avif}', {
-    eager: true,
-    query: '?url',
-    import: 'default',
-  }),
-).sort(([a], [b]) => a.localeCompare(b, 'es', { numeric: true }))
+// Public assets use BASE_URL directly, so development and GitHub Pages share the same paths.
+export const buenClimaImages = [
+  'img1.jpg',
+  'img2.jpg',
+  'img3.jpg',
+  'img4.jpg',
+  'img5.png',
+].map((name) => [name, `${import.meta.env.BASE_URL}images/buenClima/${name}`])
 
 export const buenClimaScreenshots = buenClimaImages.map(([, src], index) => ({
   src,

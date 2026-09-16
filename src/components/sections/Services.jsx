@@ -2,20 +2,23 @@ import ProjectProcess from './ProjectProcess'
 
 export default function Services() {
   return (
-    <section id="servicios" className="services">
+    <section
+      id="servicios"
+      className="services"
+      aria-labelledby="services-title"
+    >
       <div className="wrap section">
         <div className="section-heading">
           <div>
             <p className="section-label">Servicios</p>
-            <h2>
-              Una web a la altura
-              <br />
-              de <em>tu idea.</em>
+            <h2 id="services-title">
+              Una web a la altura de <em>tu idea.</em>
             </h2>
           </div>
           <p>
-            Sitios web, landing pages, plataformas educativas y paneles administrativos. Un punto de partida para tu proyecto. Definimos juntos las
-            funcionalidades que necesita tu negocio.
+            Sitios web, landing pages, plataformas educativas y paneles
+            administrativos. Un punto de partida para tu proyecto. Definimos
+            juntos las funcionalidades que necesita tu negocio.
           </p>
         </div>
         <div className="service-grid">

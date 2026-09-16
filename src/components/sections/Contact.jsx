@@ -16,11 +16,15 @@ export default function Contact() {
     handleCaptchaError,
   } = useContactForm()
   return (
-    <section id="contacto" className="contact wrap">
+    <section
+      id="contacto"
+      className="contact wrap"
+      aria-labelledby="contact-title"
+    >
       <div className="contact-layout">
         <div className="contact-copy">
           <p className="eyebrow">EL PRÓXIMO PROYECTO PUEDE SER EL TUYO</p>
-          <h2>
+          <h2 id="contact-title">
             ¿Le damos forma
             <br />a <em>tu idea?</em>
           </h2>

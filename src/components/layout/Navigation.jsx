@@ -68,7 +68,7 @@ export default function Navigation() {
         <a
           href="#inicio"
           className="nav-brand"
-          aria-label="Pablo Gamarra, inicio"
+          aria-label="pg Pablo Gamarra desarrollo web, inicio"
           onClick={(event) => navigate(event, 'inicio')}
         >
           <span className="nav-monogram" aria-hidden="true">

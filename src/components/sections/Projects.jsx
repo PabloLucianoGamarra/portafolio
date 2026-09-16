@@ -9,13 +9,16 @@ import ProjectGallery from '../projects/ProjectGallery'
 export default function Projects() {
   const [activeProject, setActiveProject] = useState(null)
   return (
-    <section id="proyectos" className="section wrap">
+    <section
+      id="proyectos"
+      className="section wrap"
+      aria-labelledby="projects-title"
+    >
       <div className="section-heading">
         <div>
           <p className="section-label">Proyectos</p>
-          <h2>
-            Del concepto
-            <br />a la <em>pantalla.</em>
+          <h2 id="projects-title">
+            Del concepto a la <em>pantalla.</em>
           </h2>
         </div>
         <p>
@@ -31,36 +34,37 @@ export default function Projects() {
             key={project.id}
           >
             <Preview id={project.id} />
-            <div className="project-summary"><div className="project-meta">
-              <span>
-                {project.category} / {project.technology}
-              </span>
-              <span>{project.type}</span>
-            </div>
-            <h3 className="project-title" id={`title-${project.id}`}>
-              {project.name}
-            </h3>
-            <p>{project.description}</p>
-            <button
-              className="project-toggle"
-              aria-expanded={activeProject === project.id}
-              aria-controls={`details-${project.id}`}
-              aria-describedby={`title-${project.id}`}
-              onClick={() =>
-                setActiveProject(
-                  activeProject === project.id ? null : project.id,
-                )
-              }
-            >
-              <span>
-                {activeProject === project.id
-                  ? 'Cerrar proyecto'
-                  : 'Explorar proyecto'}
-              </span>
-              <span className="project-toggle-icon" aria-hidden="true">
-                +
-              </span>
-            </button>
+            <div className="project-summary">
+              <div className="project-meta">
+                <span>
+                  {project.category} / {project.technology}
+                </span>
+                <span>{project.type}</span>
+              </div>
+              <h3 className="project-title" id={`title-${project.id}`}>
+                {project.name}
+              </h3>
+              <p>{project.description}</p>
+              <button
+                className="project-toggle"
+                aria-expanded={activeProject === project.id}
+                aria-controls={`details-${project.id}`}
+                aria-describedby={`title-${project.id}`}
+                onClick={() =>
+                  setActiveProject(
+                    activeProject === project.id ? null : project.id,
+                  )
+                }
+              >
+                <span>
+                  {activeProject === project.id
+                    ? 'Cerrar proyecto'
+                    : 'Explorar proyecto'}
+                </span>
+                <span className="project-toggle-icon" aria-hidden="true">
+                  +
+                </span>
+              </button>
             </div>
             <div
               id={`details-${project.id}`}

@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "overflow": false,
+      "ctaBottom": 577.453125
+    },
+    {
+      "width": 375,
+      "overflow": false,
+      "ctaBottom": 492.359375
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "ctaBottom": 495.359375
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "ctaBottom": 490.03125
+    },
+    {
+      "width": 1366,
+      "overflow": false,
+      "ctaBottom": 522.3125
+    },
+    {
+      "cv": true,
+      "details-buen-clima": true,
+      "details-notas": true,
+      "details-tienda": true,
+      "details-empresa": true,
+      "cart": true,
+      "emptyCart": true,
+      "filter": true,
+      "email": true,
+      "formValidation": true,
+      "theme": true,
+      "teaching": true,
+      "gallery": true
+    },
+    {
+      "mobileMenu": true,
+      "escapeCloses": true,
+      "focusRestored": true
+    }
+  ],
+  "errors": []
+}

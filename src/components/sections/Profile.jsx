@@ -1,9 +1,13 @@
 export default function Profile() {
   return (
-    <section id="perfil" className="section wrap profile">
+    <section
+      id="perfil"
+      className="section wrap profile"
+      aria-labelledby="profile-title"
+    >
       <div>
         <p className="section-label">Sobre mí</p>
-        <h2>
+        <h2 id="profile-title">
           Pablo Luciano
           <br />
           <em>Gamarra.</em>
@@ -19,8 +23,8 @@ export default function Profile() {
       </div>
       <div className="profile-story">
         <p className="profile-lead">
-          Desarrollo soluciones digitales y comparto lo que sé a través de la
-          enseñanza.
+          Desarrollo web con propósito. Creo soluciones digitales y comparto lo
+          que sé a través de la enseñanza.
         </p>
         <p>
           Soy programador, futuro Ingeniero en Informática y profesor de

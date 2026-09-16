@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "overflow": false,
+      "ctaBottom": 520.359375
+    },
+    {
+      "width": 375,
+      "overflow": false,
+      "ctaBottom": 491.265625
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "ctaBottom": 502.265625
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "ctaBottom": 504.28125
+    },
+    {
+      "width": 1366,
+      "overflow": false,
+      "ctaBottom": 530.453125
+    }
+  ],
+  "errors": []
+}
